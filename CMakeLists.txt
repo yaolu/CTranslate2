@@ -552,6 +552,7 @@ if (WITH_CUDA)
     list(APPEND LIBRARIES ${CUDA_CUBLAS_LIBRARIES})
   endif()
   set(CUDA_LINK_LIBRARIES_KEYWORD PRIVATE)
+  add_definitions(-DCT2_WITH_FLASH_ATTN)
   cuda_add_library(${PROJECT_NAME}
     ${SOURCES}
     src/cuda/allocator.cc
@@ -580,10 +581,6 @@ if (WITH_CUDA)
     src/ops/awq/gemm_gpu.cu
     src/ops/awq/gemv_gpu.cu
     src/ops/awq/dequantize_gpu.cu
-  )
-  if (WITH_FLASH_ATTN)
-    add_definitions(-DCT2_WITH_FLASH_ATTN)
-    add_library(${PROJECT_NAME}
       src/ops/flash-attention/flash_fwd_hdim32_bf16_sm80.cu
       src/ops/flash-attention/flash_fwd_hdim32_fp16_sm80.cu
       src/ops/flash-attention/flash_fwd_hdim64_bf16_sm80.cu
@@ -652,7 +649,6 @@ if (WITH_CUDA)
       src/ops/flash-attention/flash_fwd_split_hdim256_bf16_sm80.cu
       src/ops/flash-attention/flash_fwd_split_hdim256_fp16_sm80.cu
       PROPERTIES COMPILE_FLAGS "--use_fast_math")
-  endif()
 
 
 elseif(WITH_CUDNN)
