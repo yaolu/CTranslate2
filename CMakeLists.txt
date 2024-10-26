@@ -583,7 +583,7 @@ if (WITH_CUDA)
   )
   if (WITH_FLASH_ATTN)
     add_definitions(-DCT2_WITH_FLASH_ATTN)
-    cuda_add_library(${PROJECT_NAME}
+    add_library(${PROJECT_NAME}
       src/ops/flash-attention/flash_fwd_hdim32_bf16_sm80.cu
       src/ops/flash-attention/flash_fwd_hdim32_fp16_sm80.cu
       src/ops/flash-attention/flash_fwd_hdim64_bf16_sm80.cu
